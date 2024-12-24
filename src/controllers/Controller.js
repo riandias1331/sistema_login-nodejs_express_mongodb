@@ -16,6 +16,9 @@ exports.register = async (req, res) => {
   try {
     const { email, password } = req.body
 
+    const salt = await bcrypt.genSalt(10); 
+    const hashPassword = await bcrypt.hash(password, salt); 
+
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       return res.status(400).render('register', { error: 'Email já está em uso' });
@@ -23,7 +26,7 @@ exports.register = async (req, res) => {
 
     const user = await User.create({
       email,
-      password
+      password: hashPassword
     })
     console.log(user)
     // res.status(201).json(user)
@@ -36,6 +39,8 @@ exports.register = async (req, res) => {
 exports.login = async (req, res) => {
     try {
       const { email, password } = req.body;
+
+      
   
       const user = await User.findOne({ email });
       if (!user) {

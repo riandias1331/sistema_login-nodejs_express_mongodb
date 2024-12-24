@@ -14,7 +14,7 @@ const flash = require('connect-flash')
 
 const sessionOptions = session({
     secret: 'askodjiyfdygdlm', 
-    store: MongoStore.create({ mongoUrl: process.env.CONNECTIONSTRING }), 
+    store: MongoStore.create({ mongoUrl: process.env.CONNECTION }), 
     resave: false, 
     saveUninitialized: true, 
     cookie: {
