@@ -14,7 +14,7 @@ const flash = require('connect-flash')
 
 const sessionOptions = session({
     secret: 'askodjiyfdygdlm', 
-    store: MongoStore.create({ mongoUrl: process.env.CONNECTION }), 
+    store: MongoStore.create({ mongoUrl: process.env.DATABASE_URL }), 
     resave: false, 
     saveUninitialized: true, 
     cookie: {
@@ -27,7 +27,7 @@ app.use(sessionOptions) // aplica as opções de sessão configuradas
 app.use(flash()) // ativa o uso de flash messages
 
 const mongoose = require('mongoose')
-mongoose.connect(process.env.CONNECTION)
+mongoose.connect(process.env.DATABASE_URL)
     .then(() => {
         console.log('Database Connected')
         app.emit('DataBase')
